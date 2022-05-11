@@ -18,18 +18,17 @@ const storage = multer.diskStorage({
 		cb(null, path.join(path.dirname(__dirname), 'uploads'));
 	},
 	filename: function (req, file, cb) {
-		cb(null, shortid.generate() + '-' + file.originalname);
+		cb(null, shortid.generate() + '-' + file.originalname + '-' + Date.now());
 	},
 });
 
 const upload = multer({ storage });
 
-router.post('/product/create', createProduct);
-//isSignedIn, adminMiddleware, uploadS3.array('productPicture'),
+router.post('/product/create', isSignedIn, adminMiddleware, upload.array('productPictures'), createProduct);
 router.get('/products/:slug', getProductsBySlug);
-//router.get('/category/getcategory', getCategories);
+// //router.get('/category/getcategory', getCategories);
 router.get('/product/:productId', getProductDetailsById);
-router.delete('/product/deleteProductById', isSignedIn, adminMiddleware, deleteProductById);
-router.post('/product/getProducts', isSignedIn, adminMiddleware, getProducts);
+// router.delete('/product/deleteProductById', isSignedIn, adminMiddleware, deleteProductById);
+// router.post('/product/getProducts', isSignedIn, adminMiddleware, getProducts);
 
 module.exports = router;

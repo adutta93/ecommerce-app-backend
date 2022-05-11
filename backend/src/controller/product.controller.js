@@ -4,33 +4,33 @@ const slugify = require('slugify');
 const Category = require('../models/category.model');
 
 exports.createProduct = async (req, res) => {
-	//res.status(200).json( { file: req.files, body: req.body } );
+	// res.status(200).json({ file: req.files, body: req.body });
 
 	const { name, price, description, category, quantity, createdBy } = req.body;
 	let productPictures = [];
 
-	if (req.files.length > 0) {
+	if (req.files?.length > 0) {
 		productPictures = req.files.map((file) => {
-			return { img: file.location };
+			return { img: file.filename };
 		});
 	}
 
 	const newProduct = new Product({
-		name: name,
+		name,
 		slug: slugify(name),
 		price,
 		quantity,
 		description,
 		productPictures,
 		category,
-		// createdBy: req.user._id,
+		createdBy: req.user._id,
 	});
 
-	const product = newProduct.save({});
-	if (product) {
-		res.status(201).json({ product, files: req.files });
+	const product = newProduct.save();
+	if (!product) {
+		return res.status(400).json({ error: 'unable to save product' });
 	}
-	return res.status(400).json({ error: 'unable to save product' });
+	res.status(201).json({ success: 'Product saved successfully', product });
 };
 exports.getProductsBySlug = (req, res) => {
 	const { slug } = req.params;
@@ -77,14 +77,14 @@ exports.getProductsBySlug = (req, res) => {
 
 exports.getProductDetailsById = async (req, res) => {
 	const { productId } = req.params;
-	if (productId) {
-		const product = await Product.findOne({ _id: productId });
-		if (product) {
-			res.status(200).json({ product });
-		}
+	if (!productId) {
+		return res.status(400).json({ error: 'Params required' });
+	}
+	const product = await Product.findOne({ _id: productId });
+	if (!product) {
 		return res.status(400).json({ error: 'could not find product' });
 	}
-	return res.status(400).json({ error: 'Params required' });
+	res.status(200).json({ product });
 };
 
 // new update
