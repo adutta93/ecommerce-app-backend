@@ -25,8 +25,6 @@ mongoose
 	.connect(uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
-		useCreateIndex: true,
-		useFindAndModify: false,
 	})
 	.then(() => {
 		console.log(colors.brightMagenta('MongoDB Successfully connected'));
