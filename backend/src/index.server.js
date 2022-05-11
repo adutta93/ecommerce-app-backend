@@ -11,7 +11,7 @@ app.use(express.json());
 //routes
 const authRoutes = require('./routes/auth.routes');
 const adminRoutes = require('./routes/admin/auth.admin.routes');
-// const categoryRoutes = require("./routes/category");
+const categoryRoutes = require('./routes/category.routes');
 // const productRoutes = require("./routes/product");
 // const cartRoutes = require("./routes/cart");
 // const initialDataRoutes = require("./routes/admin/initialData");
@@ -34,7 +34,7 @@ mongoose
 // app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
-// app.use("/api", categoryRoutes);
+app.use('/api', categoryRoutes);
 // app.use("/api", productRoutes);
 // app.use("/api", cartRoutes);
 // app.use("/api", initialDataRoutes);
