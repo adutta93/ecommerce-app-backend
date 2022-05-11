@@ -28,6 +28,7 @@ function createCategories(categories, parentId = null) {
 exports.addCategory = async (req, res) => {
 	const categoryObj = {
 		name: req.body.name,
+		parentId: req.body.parentId,
 		// slug: `${slugify(req.body.name)}-${shortid.generate()}`,
 		slug: slugify(req.body.name),
 		// createdBy: req.user?._id,
@@ -42,7 +43,7 @@ exports.addCategory = async (req, res) => {
 	}
 
 	const cat = new Category(categoryObj);
-	const category = await cat.save();
+	const category = await cat.save({});
 	if (category) {
 		return res.status(201).json({ category });
 	}

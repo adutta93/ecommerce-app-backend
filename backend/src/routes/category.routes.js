@@ -17,10 +17,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/category/create', isSignedIn, superAdminMiddleware, addCategory);
-//  isSignedIn, superAdminMiddleware, upload.single('categoryImage'),
+router.post('/category/create', isSignedIn, adminMiddleware, addCategory);
+// requireSignin, superAdminMiddleware, upload.single('categoryImage'),
 router.get('/category/getcategory', getCategories);
 router.post('/category/update', updateCategories);
-// router.post('/category/delete',  isSignedIn, superAdminMiddleware, deleteCategories);
+// router.post('/category/delete', requireSignin, superAdminMiddleware, deleteCategories);
 
 module.exports = router;
