@@ -12,7 +12,7 @@ app.use(express.json());
 const authRoutes = require('./routes/auth.routes');
 const adminRoutes = require('./routes/admin/auth.admin.routes');
 const categoryRoutes = require('./routes/category.routes');
-// const productRoutes = require("./routes/product");
+const productRoutes = require('./routes/product.routes');
 // const cartRoutes = require("./routes/cart");
 // const initialDataRoutes = require("./routes/admin/initialData");
 // const pageRoutes = require("./routes/admin/page");
@@ -35,7 +35,7 @@ mongoose
 app.use('/api', authRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', categoryRoutes);
-// app.use("/api", productRoutes);
+app.use('/api', productRoutes);
 // app.use("/api", cartRoutes);
 // app.use("/api", initialDataRoutes);
 // app.use("/api", pageRoutes);
