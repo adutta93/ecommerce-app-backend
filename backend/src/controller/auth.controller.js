@@ -1,7 +1,7 @@
 const User = require('../models/user.model');
 const shortid = require('shortid');
 const { FindUser } = require('../utility/UserUtility');
-const { GenereteSalt, GeneretePassword, GenerateSignature, ValidateSignature } = require('../utility/PasswordUtility');
+const { GenereteSalt, GeneretePassword, GenerateSignature } = require('../utility/PasswordUtility');
 
 exports.signup = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
