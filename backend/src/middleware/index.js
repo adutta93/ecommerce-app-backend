@@ -66,10 +66,10 @@ exports.isSignedIn = (req, res, next) => {
 
 exports.adminMiddleware = (req, res, next) => {
 	const role = req.user.role;
-	if (role !== 'admin' && role !== 'super-admin') {
+	if (role !== 'admin' || role !== 'super-admin') {
 		next();
 	} else {
-		return res.sendStatus(400).json({ message: 'Admin access denied' });
+		return res.status(400).json({ message: 'Admin access denied' });
 	}
 };
 

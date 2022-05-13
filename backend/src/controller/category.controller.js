@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Category = require('../models/category.model');
 const slugify = require('slugify');
 const shortid = require('shortid');
@@ -29,13 +30,12 @@ exports.addCategory = async (req, res) => {
 	const categoryObj = {
 		name: req.body.name,
 		parentId: req.body.parentId,
-		// slug: `${slugify(req.body.name)}-${shortid.generate()}`,
 		slug: slugify(req.body.name),
 		// createdBy: req.user?._id,
 	};
 
 	if (req.file) {
-		categoryObj.categoryImage = '/public/' + req.file.filename;
+		categoryObj.categoryImage = process.env.API_URL + '/public/' + req.file.filename;
 	}
 
 	if (req.body.parentId) {
