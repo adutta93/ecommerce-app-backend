@@ -9,7 +9,6 @@ const InitialState = {
 		username: '',
 		email: '',
 		picture: '',
-		username: '',
 		role: '',
 	},
 	isAauthenticated: false,
@@ -23,7 +22,7 @@ export const AuthReducer = (state = InitialState, action) => {
 		case LOGIN_REQUEST:
 			state = {
 				...state,
-				isAauthenticated: true,
+				isAuthenticating: true,
 			};
 			break;
 		case LOGIN_SUCCESS:
@@ -32,6 +31,7 @@ export const AuthReducer = (state = InitialState, action) => {
 				user: payload.user,
 				token: payload.token,
 				isAauthenticated: true,
+				isAuthenticating: false,
 			};
 			break;
 		case LOGIN_FAILURE:

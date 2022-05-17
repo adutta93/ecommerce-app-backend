@@ -22,6 +22,7 @@ export const LoginAction = (user) => {
 			if (response.status === 400 || response.status === 404) {
 				dispatch({
 					type: LOGIN_FAILURE,
+					payload: { error: response.data.error },
 				});
 			}
 		}

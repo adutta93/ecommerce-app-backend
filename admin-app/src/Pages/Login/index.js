@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import AuthLayout from '../../Layout/AuthLayout';
 import { useNavigate } from 'react-router-dom';
 import { AxiosInstace } from '../../utils/axios';
+import Loader from '../../Components/Loader/Loader';
+
 //Redux Imports
 import { LoginAction } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Login() {
 	const [userLogin, SetUserLogin] = useState({
@@ -23,6 +25,8 @@ export default function Login() {
 	const login = true;
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const toast = useToast();
+	const user = useSelector((state) => state.auth);
 
 	const onHandleSubmit = (event) => {
 		event.preventDefault();
@@ -31,10 +35,20 @@ export default function Login() {
 			password: userLogin.password,
 		};
 		dispatch(LoginAction(user));
-		navigate('/home', { replace: true });
 	};
+	if (user?.isAauthenticated) {
+		toast({
+			title: '🎉 Successfully logged in',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+		navigate('/home', { replace: true });
+	}
 
-	const handleChage = () => {};
+	if (user?.isAuthenticating) {
+		return <Loader />;
+	}
 	return (
 		<AuthLayout>
 			<Text fontSize='large' textAlign='center' color='gray.600' fontWeight='bold' mb='2'>
