@@ -12,10 +12,11 @@ const InitialState = {
 	},
 	isUserAdded: false,
 	isUserAdding: false,
+	error: '',
+	message: '',
 };
 
 export const UserReducer = (state = InitialState, action) => {
-	console.log('Action', action);
 	const { type, payload } = action;
 	switch (type) {
 		case ADD_USER_REQUEST:
@@ -30,12 +31,15 @@ export const UserReducer = (state = InitialState, action) => {
 				user: payload.user,
 				isUserAdded: true,
 				isUserAdding: false,
+				message: payload.message,
 			};
 			break;
 		case ADD_USER_FAILURE:
 			state = {
+				...state,
 				isUserAdded: false,
 				isUserAdding: false,
+				error: payload.error,
 			};
 			break;
 	}

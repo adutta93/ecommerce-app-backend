@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const LinkItems = [
 	{ name: 'Home', icon: FiHome },
-	{ name: 'Users', icon: FiTrendingUp, path: '/users' },
+	{ name: 'Users', icon: FiTrendingUp, path: '/add-user' },
 	{ name: 'Trending', icon: FiTrendingUp },
 	{ name: 'Explore', icon: FiCompass },
 	{ name: 'Favourites', icon: FiStar },

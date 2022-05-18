@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FormControl, FormLabel, Input, useToast, VStack, Text } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input, useToast, VStack, HStack, Text } from '@chakra-ui/react';
 import AuthLayout from '../../Layout/AuthLayout';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
@@ -44,47 +44,61 @@ export default function AddUser() {
 
 	if (newuser?.isUserAdded) {
 		toast({
-			title: '🎉 User successfully added',
+			title: `🎉 ${newuser.message}`,
 			status: 'success',
 			duration: 3000,
 			isClosable: true,
 		});
 		navigate('/home', { replace: true });
 	}
+	// if (!newuser?.isUserAdded) {
+	// 	toast({
+	// 		title: ` ${newuser.error}`,
+	// 		status: 'error',
+	// 		duration: 3000,
+	// 		isClosable: true,
+	// 	});
+	// }
 	if (newuser?.isUserAdding) {
 		return <Loader />;
 	}
 	const login = false;
 	return (
 		<AuthLayout>
-			{/* <Text fontSize='large' textAlign='center' color='gray.600' fontWeight='bold' mb='2'>
-				Add your favorite Admin 👋 <br />
-			</Text> */}
+			<Text fontSize='large' textAlign='center' color='gray.600' fontWeight='bold' mb='2'>
+				Hello Admin 👋 <br />
+			</Text>
+			<Text fontSize='large' textAlign='center' color='gray.500' mb='8'>
+				Add your favorite people here
+			</Text>
 
 			<form onSubmit={onHandleSubmit}>
 				<VStack spacing='5' justify='space-between'>
-					<FormControl isRequired>
-						<FormLabel htmlFor='admin-username'>First name</FormLabel>
-						<Input
-							size='lg'
-							id='admin-username'
-							placeholder='Firstname'
-							value={addUser.firstName}
-							name='firstName'
-							onChange={onChangeHandler}
-						/>
-					</FormControl>
-					<FormControl isRequired>
-						<FormLabel htmlFor='admin-username'>Lastname</FormLabel>
-						<Input
-							size='lg'
-							id='admin-username'
-							placeholder='Last name'
-							value={addUser.lastName}
-							name='lastName'
-							onChange={onChangeHandler}
-						/>
-					</FormControl>
+					<HStack>
+						<FormControl isRequired>
+							<FormLabel htmlFor='admin-username'>First name</FormLabel>
+							<Input
+								size='lg'
+								id='admin-username'
+								placeholder='Firstname'
+								value={addUser.firstName}
+								name='firstName'
+								onChange={onChangeHandler}
+							/>
+						</FormControl>
+						<FormControl isRequired>
+							<FormLabel htmlFor='admin-username'>Lastname</FormLabel>
+							<Input
+								size='lg'
+								id='admin-username'
+								placeholder='Last name'
+								value={addUser.lastName}
+								name='lastName'
+								onChange={onChangeHandler}
+							/>
+						</FormControl>
+					</HStack>
+
 					<FormControl isRequired>
 						<FormLabel htmlFor='admin-username'>Email Id</FormLabel>
 						<Input
