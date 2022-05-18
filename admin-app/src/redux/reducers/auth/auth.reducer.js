@@ -1,5 +1,5 @@
 import { AuthTypes } from '../../actiontypes';
-const { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS } = AuthTypes;
+const { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_REQUEST, LOGOUT_FAILURE, LOGOUT_SUCCESS } = AuthTypes;
 
 const InitialState = {
 	token: null,
@@ -39,6 +39,12 @@ export const AuthReducer = (state = InitialState, action) => {
 				isAauthenticated: false,
 				isAuthenticating: false,
 			};
+			break;
+		case LOGOUT_REQUEST:
+			state = {
+				...InitialState,
+			};
+			break;
 	}
 
 	return state;

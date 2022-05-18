@@ -1,41 +1,37 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
 //component
 import Login from '../Pages/Login';
 import Signup from '../Pages/Signup';
-import Home from '../Pages/Home';
+import Home from '../Pages/Dashboard';
 import Four0Four from '../Pages/Four0Four';
 import Header from '../Components/Header';
 
-import setAuthToken from '../utils/SetAuthToken';
-import jwt_decode from 'jwt-decode';
-import { useSelector } from 'react-redux';
-
+// import setAuthToken from '../utils/SetAuthToken';
+// import jwt_decode from 'jwt-decode';
+import { useDispatch, useSelector } from 'react-redux';
+import { isUserLoggedIn } from '../redux/actions';
 //mock user
 
 const Router = () => {
 	const user = useSelector((state) => state.auth);
-	const ValidateToken = (token) => {
-		if (token) {
-			setAuthToken(token);
-			let decoded = jwt_decode(token);
-			console.log('Decoded value', decoded);
-			if (decoded?._id === user?.user._id) {
-				return true;
-			}
-			localStorage.removeItem('user');
-			return false;
+	const dispatch = useDispatch();
+	useEffect(() => {
+		if (!user.isAauthenticated) {
+			dispatch(isUserLoggedIn());
 		}
-	};
+	}, []);
+	console.log('User from route', user);
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route path='/' element={<Login />} />
-				{ValidateToken(user?.token) ? (
+				{user?.token ? (
 					user?.user?.role === 'super-admin' ? (
 						[
 							<Route path='/home' element={<Home />} />,
 							<Route path='/signup' element={<Signup />} />,
+							<Route path='*' element={<Four0Four />} key='**' />,
 							// <Route path='*' element={<Warning />} key='*' />,
 						]
 					) : user?.user?.role === 'admin' ? (

@@ -15,6 +15,11 @@ export default function Login() {
 		password: '',
 		error: '',
 	});
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.auth);
+	const toast = useToast();
+	const navigate = useNavigate();
+	const login = true;
 
 	const onChangeHandler = (e) => {
 		SetUserLogin((prevState) => ({
@@ -22,11 +27,6 @@ export default function Login() {
 			[e.target.name]: e.target.value,
 		}));
 	};
-	const login = true;
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const toast = useToast();
-	const user = useSelector((state) => state.auth);
 
 	const onHandleSubmit = (event) => {
 		event.preventDefault();
