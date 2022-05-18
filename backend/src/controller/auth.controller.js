@@ -20,7 +20,7 @@ exports.signup = async (req, res) => {
 		hash_password,
 		username: shortid.generate(),
 	});
-	return res.json({
+	return res.status(200).json({
 		_createUser,
 	});
 };

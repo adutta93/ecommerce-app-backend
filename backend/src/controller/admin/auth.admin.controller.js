@@ -41,7 +41,7 @@ exports.signin = async (req, res) => {
 	} else {
 		const isPassword = await UserExist.authenticate(password);
 		if (isPassword) {
-			if (!UserExist.role === 'admin') {
+			if (!UserExist.role === 'admin' || !UserExist.role === 'super-admin') {
 				return res.status(400).json({
 					message: 'Youre not an admin',
 				});
