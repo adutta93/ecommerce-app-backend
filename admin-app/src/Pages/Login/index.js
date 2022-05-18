@@ -2,7 +2,6 @@ import { Button, FormControl, FormLabel, Input, useToast, VStack, Text } from '@
 import React, { useEffect, useState } from 'react';
 import AuthLayout from '../../Layout/AuthLayout';
 import { useNavigate } from 'react-router-dom';
-import { AxiosInstace } from '../../utils/axios';
 import Loader from '../../Components/Loader/Loader';
 
 //Redux Imports

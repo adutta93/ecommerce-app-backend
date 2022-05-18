@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 //component
 import Login from '../Pages/Login';
-import Signup from '../Pages/Signup';
+import AddUser from '../Pages/AddUser';
 import Home from '../Pages/Dashboard';
 import Four0Four from '../Pages/Four0Four';
-import Header from '../Components/Header';
+import Users from '../Pages/Dashboard/Users';
 
 // import setAuthToken from '../utils/SetAuthToken';
 // import jwt_decode from 'jwt-decode';
@@ -21,7 +21,6 @@ const Router = () => {
 			dispatch(isUserLoggedIn());
 		}
 	}, []);
-	console.log('User from route', user);
 	return (
 		<BrowserRouter>
 			<Routes>
@@ -30,7 +29,8 @@ const Router = () => {
 					user?.user?.role === 'super-admin' ? (
 						[
 							<Route path='/home' element={<Home />} />,
-							<Route path='/signup' element={<Signup />} />,
+							<Route path='/add-user' element={<AddUser />} />,
+							<Route path='/users' element={<Users />} />,
 							<Route path='*' element={<Four0Four />} key='**' />,
 							// <Route path='*' element={<Warning />} key='*' />,
 						]

@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const LinkItems = [
 	{ name: 'Home', icon: FiHome },
+	{ name: 'Users', icon: FiTrendingUp, path: '/users' },
 	{ name: 'Trending', icon: FiTrendingUp },
 	{ name: 'Explore', icon: FiCompass },
 	{ name: 'Favourites', icon: FiStar },
@@ -79,7 +80,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 				<CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
 			</Flex>
 			{LinkItems.map((link) => (
-				<NavItem key={link.name} icon={link.icon}>
+				<NavItem key={link.name} icon={link.icon} to={link.path}>
 					{link.name}
 				</NavItem>
 			))}
@@ -87,9 +88,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
 	);
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, to, children, ...rest }) => {
 	return (
-		<Link href='#' style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+		<Link href={to} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
 			<Flex
 				align='center'
 				p='4'

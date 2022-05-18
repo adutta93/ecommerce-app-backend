@@ -1,10 +1,8 @@
-import { AuthTypes } from '../../actiontypes';
 import AxiosInstance from '../../../utils/axios';
+import { AuthTypes } from '../../actiontypes/';
 const { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_REQUEST, LOGOUT_FAILURE } = AuthTypes;
 
 export const LoginAction = (user) => {
-	console.log('User from action', user);
-
 	return async (dispatch) => {
 		dispatch({ type: LOGIN_REQUEST });
 		const response = await AxiosInstance.post(`/admin/signin`, {
