@@ -45,6 +45,16 @@ export default function Login() {
 		navigate('/home', { replace: true });
 	}
 
+	// if (user?.isAauthenticated) {
+	// 	toast({
+	// 		title: '🎉 Successfully logged in',
+	// 		status: 'success',
+	// 		duration: 3000,
+	// 		isClosable: true,
+	// 	});
+	// 	navigate('/home', { replace: true });
+	// }
+
 	if (user?.isAuthenticating) {
 		return <Loader />;
 	}
