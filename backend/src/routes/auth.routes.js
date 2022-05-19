@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/signup', validateSignupRequest, isRequestValidated, signup);
 router.post('/signin', validateSigninRequest, isRequestValidated, signin);
-router.post('/signout', isSignedIn, signout);
+router.post('/signout', signout);
 
 router.post('/profile', isSignedIn, (req, res) => {
 	res.status(200).json({ user: 'profile' });

@@ -24,16 +24,15 @@ import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, Fi
 import { signout } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 const LinkItems = [
-	{ name: 'Home', icon: FiHome },
+	{ name: 'Home', icon: FiHome, path: '/home' },
 	{ name: 'Users', icon: FiTrendingUp, path: '/add-user' },
-	{ name: 'Trending', icon: FiTrendingUp },
-	{ name: 'Explore', icon: FiCompass },
-	{ name: 'Favourites', icon: FiStar },
-	{ name: 'Settings', icon: FiSettings },
+	{ name: 'Products', icon: FiTrendingUp, path: '/products' },
+	{ name: 'Orders', icon: FiTrendingUp, path: '/orders' },
 ];
 
-export default function SidebarWithHeader({ children }) {
+export default function Dashboard({ children }) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
@@ -52,6 +51,7 @@ export default function SidebarWithHeader({ children }) {
 					<SidebarContent onClose={onClose} />
 				</DrawerContent>
 			</Drawer>
+
 			{/* mobilenav */}
 			<MobileNav onOpen={onOpen} />
 			<Box ml={{ base: 0, md: 60 }} p='4'>

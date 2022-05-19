@@ -49,9 +49,15 @@ export const isUserLoggedIn = () => {
 
 export const signout = () => {
 	return async (dispatch) => {
-		localStorage.clear();
 		dispatch({
 			type: LOGOUT_REQUEST,
 		});
+		const response = await AxiosInstance.post('/admin/signout');
+		if (response.status === 200) {
+			localStorage.clear();
+			dispatch({ type: LOGOUT_SUCCESS });
+		} else {
+			dispatch({ type: LOGOUT_FAILURE, payload: response.data.error });
+		}
 	};
 };

@@ -6,6 +6,8 @@ import AddUser from '../Pages/AddUser';
 import Home from '../Pages/Dashboard';
 import Four0Four from '../Pages/Four0Four';
 import Users from '../Pages/Dashboard/Users';
+import Orders from '../Pages/Dashboard/Orders';
+import Products from '../Pages/Dashboard/Products';
 
 // import setAuthToken from '../utils/SetAuthToken';
 // import jwt_decode from 'jwt-decode';
@@ -30,6 +32,8 @@ const Router = () => {
 						[
 							<Route path='/home' element={<Home />} />,
 							<Route path='/add-user' element={<AddUser />} />,
+							<Route path='/products' element={<Products />} />,
+							<Route path='/orders' element={<Orders />} />,
 							<Route path='/users' element={<Users />} />,
 							<Route path='*' element={<Four0Four />} key='**' />,
 							// <Route path='*' element={<Warning />} key='*' />,
@@ -49,20 +53,23 @@ const Router = () => {
 
 export default Router;
 
-// {
-// 	ValidateToken(user?.token) ? (
-// 		user?.user?.role === 'super-admin' ? (
-// 			[
-// 				<Route path='/signup' element={<Signup />} />,
-// 				<Route path='/home' element={<Home />} />,
-// 				<Route path='*' element={<Warning />} key='*' />,
-// 			]
-// 		) : user?.user?.role === 'admin' ? (
-// 			[[<Route path='/home' element={<Home />} />, <Route path='*' element={<Warning />} key='*' />]]
-// 		) : (
-// 			[<Route path='/home' element={<Home />} />, <Route path='*' element={<Warning />} key='*' />]
-// 		)
-// 	) : (
-// 		<Route path='*' element={<Four0Four />} key='**' />
-// 	);
-// }
+// <div>
+// 	<Suspense fallback={<></>}>
+// 		<Routes>
+// 			<Route
+// 				element={
+// 					<DashboardLayout>
+// 						<Outlet />
+// 					</DashboardLayout>
+// 				}
+// 			>
+// 				<Route path='/' element={<Outlet />}>
+// 					<Route index element={<Environment />} />
+// 					<Route path='/:sec' element={<Environment />} />
+// 				</Route>
+// 				<Route path='users' element={<Users />} />
+// 				<Route path='*' element={<Home />} />
+// 			</Route>
+// 		</Routes>
+// 	</Suspense>
+// </div>;

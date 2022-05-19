@@ -13,9 +13,13 @@ const InitialState = {
 	},
 	isAauthenticated: false,
 	isAuthenticating: false,
+	loading: false,
+	error: '',
+	message: '',
 };
 
 export const AuthReducer = (state = InitialState, action) => {
+	console.log('Actions from action', action);
 	const { type, payload } = action;
 	switch (type) {
 		case LOGIN_REQUEST:
@@ -41,7 +45,21 @@ export const AuthReducer = (state = InitialState, action) => {
 			break;
 		case LOGOUT_REQUEST:
 			state = {
+				...state,
+				loading: true,
+			};
+			break;
+		case LOGOUT_SUCCESS:
+			state = {
 				...InitialState,
+				loading: false,
+			};
+			break;
+		case LOGOUT_FAILURE:
+			state = {
+				...state,
+				error: payload.error,
+				loading: false,
 			};
 			break;
 	}
