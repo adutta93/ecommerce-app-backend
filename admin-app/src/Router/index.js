@@ -8,6 +8,7 @@ import Four0Four from '../Pages/Four0Four';
 import Users from '../Pages/Dashboard/Users';
 import Orders from '../Pages/Dashboard/Orders';
 import Products from '../Pages/Dashboard/Products';
+import Category from '../Pages/Dashboard/Category';
 
 // import setAuthToken from '../utils/SetAuthToken';
 // import jwt_decode from 'jwt-decode';
@@ -34,6 +35,7 @@ const Router = () => {
 							<Route path='/add-user' element={<AddUser />} />,
 							<Route path='/products' element={<Products />} />,
 							<Route path='/orders' element={<Orders />} />,
+							<Route path='/category' element={<Category />} />,
 							<Route path='/users' element={<Users />} />,
 							<Route path='*' element={<Four0Four />} key='**' />,
 							// <Route path='*' element={<Warning />} key='*' />,

@@ -28,6 +28,7 @@ import { useNavigate } from 'react-router-dom';
 const LinkItems = [
 	{ name: 'Home', icon: FiHome, path: '/home' },
 	{ name: 'Users', icon: FiTrendingUp, path: '/add-user' },
+	{ name: 'Category', icon: FiTrendingUp, path: '/category' },
 	{ name: 'Products', icon: FiTrendingUp, path: '/products' },
 	{ name: 'Orders', icon: FiTrendingUp, path: '/orders' },
 ];
