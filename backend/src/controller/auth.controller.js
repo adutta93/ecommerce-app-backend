@@ -3,6 +3,12 @@ const shortid = require('shortid');
 const { FindUser } = require('../utility/UserUtility');
 const { GenereteSalt, GeneretePassword, GenerateSignature } = require('../utility/PasswordUtility');
 
+/**
+ *
+ * ! Add user
+ * * Post req
+ */
+
 exports.signup = async (req, res) => {
 	const { firstName, lastName, email, password } = req.body;
 	const UserExist = await FindUser('', email);
@@ -25,6 +31,12 @@ exports.signup = async (req, res) => {
 	});
 };
 
+/**
+ *
+ * ! User Log in
+ * * Post req
+ */
+
 exports.signin = async (req, res) => {
 	const { email, password } = req.body;
 	const UserExist = await FindUser('', email);
@@ -37,6 +49,7 @@ exports.signin = async (req, res) => {
 		if (isPassword) {
 			const token = await GenerateSignature({ _id: UserExist._id, role: UserExist.role });
 			const { _id, firstName, lastName, email, role, fullName } = UserExist;
+			res.cookie('token', token, { expiresIn: '10d' });
 			res.status(200).json({
 				token,
 				user: { _id, firstName, lastName, email, role, fullName },
@@ -49,12 +62,15 @@ exports.signin = async (req, res) => {
 	}
 };
 
-// middleware
-// exports.isSignedIn = async (req, res, next) => {
-// 	const signature = await ValidateSignature(req);
-// 	if (signature) {
-// 		return next();
-// 	} else {
-// 		return res.json({ message: 'User Not authorised' });
-// 	}
-// };
+/**
+ *
+ * ! User Log out
+ * * Post req
+ */
+
+exports.signout = async (req, res) => {
+	res.clearCookie('token');
+	res.status(200).json({
+		message: 'Signed out successfully!',
+	});
+};
