@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Dashboard from '../';
 import { Button, Heading, Flex, Spacer, List, ListItem, ListIcon, useDisclosure } from '@chakra-ui/react';
-import { CategoryAction } from '../../../redux/actions';
+import { CategoryAction, AddCategoryAction } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiCategoryAlt } from 'react-icons/bi';
-
+import { useNavigate } from 'react-router-dom';
 import Modal from '../../../Components/Modal';
 
 const CategoryPage = () => {
@@ -14,25 +14,33 @@ const CategoryPage = () => {
 		categoryImage: '',
 	});
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const categorystate = useSelector((state) => state.category);
 
 	const onChangeHandler = (e) => {
-		SetCategoryData((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
-	};
+		// SetCategoryData((prevState) => ({
+		// 	...prevState,
+		// 	[e.target.name]: e.target.value,
+		// }));
 
+		e.target.name !== 'categoryImage'
+			? SetCategoryData({ ...categoryData, [e.target.name]: e.target.value })
+			: SetCategoryData({ ...categoryData, [e.target.name]: e.target.files[0] });
+	};
+	// const onHandleCategoryImage = (event) => {
+	// 	SetCategoryData({ categoryImage: event.target.files[0] });
+	// };
 	const onHandleSubmit = (event) => {
 		event.preventDefault();
-		let NewCategory = {
-			categoryName: categoryData.categoryName,
-			parentCategoryId: categoryData.parentCategoryId,
-			categoryImage: categoryData.categoryImage,
-		};
-		console.log(NewCategory);
-		// dispatch(LoginAction(user));
+
+		const UpdatedCategoryData = new FormData();
+		UpdatedCategoryData.append('name', categoryData.categoryName);
+		UpdatedCategoryData.append('parentId', categoryData.parentCategoryId);
+		UpdatedCategoryData.append('categoryImage', categoryData.categoryImage);
+		console.log(UpdatedCategoryData);
+		dispatch(AddCategoryAction(UpdatedCategoryData));
+		onClose();
 	};
 
 	useEffect(() => {
@@ -48,7 +56,7 @@ const CategoryPage = () => {
 					<ListIcon mt={2} key={item._id} as={BiCategoryAlt} color='cyan.400' />
 					{item.name}
 					{item?.children?.length > 0 ? (
-						<ListItem ml={8} mt={1}>
+						<ListItem ml={8} mt={1} key={item?.children?._id}>
 							{RenderCategories(item.children)}
 						</ListItem>
 					) : null}
@@ -91,7 +99,7 @@ const CategoryPage = () => {
 					isOpen={isOpen}
 					onOpen={onOpen}
 					onClose={onClose}
-					value={categoryData}
+					categoryData={categoryData}
 					placeholder='Enter the category name'
 					label='Category Name'
 					header='Add a category'

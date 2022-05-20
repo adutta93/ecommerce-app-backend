@@ -43,26 +43,27 @@ const ModalPopup = ({
 				finalFocusRef={finalRef}
 				isOpen={isOpen}
 				onClose={onClose}
-				// onSubmit={CategoryOnHandleSubmit}
+				encType='multipart/form-data'
 			>
 				<ModalOverlay />
-				<ModalContent>
+				<ModalContent encType='multipart/form-data'>
 					<ModalHeader>{header}</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
 						<FormControl>
 							<FormLabel>{label}</FormLabel>
 							<Input
-								ref={initialRef}
+								// ref={initialRef}
+								name='categoryName'
 								placeholder={placeholder}
 								onChange={CategoryOnchangeHandler}
-								value={categoryData?.name}
+								value={categoryData?.categoryName}
 							/>
 						</FormControl>
 
 						<FormControl mt={4}>
 							<FormLabel>{choose}</FormLabel>
-							<Select placeholder='Select option' onChange={CategoryOnchangeHandler}>
+							<Select placeholder='Select option' onChange={CategoryOnchangeHandler} name='parentCategoryId'>
 								{AddCategoryList(categorystate.categories).map((option) => (
 									<option key={option.value} value={option.value}>
 										{option.name}
@@ -70,9 +71,10 @@ const ModalPopup = ({
 								))}
 							</Select>
 						</FormControl>
-						<FormControl mt={4}>
+						<FormControl mt={4} encType='multipart/form-data'>
 							<FormLabel>Upload Image</FormLabel>
-							<input type='file' />
+							{/* value={categoryData?.categoryImage} */}
+							<input type='file' value={''} onChange={CategoryOnchangeHandler} name='categoryImage' />
 						</FormControl>
 					</ModalBody>
 
