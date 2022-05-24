@@ -36,12 +36,12 @@ export default function Login() {
 		dispatch(LoginAction(user));
 	};
 	if (user?.isAauthenticated) {
-		toast({
-			title: '🎉 Successfully logged in',
-			status: 'success',
-			duration: 3000,
-			isClosable: true,
-		});
+		// toast({
+		// 	title: '🎉 Successfully logged in',
+		// 	status: 'success',
+		// 	duration: 3000,
+		// 	isClosable: true,
+		// });
 		navigate('/home', { replace: true });
 	}
 

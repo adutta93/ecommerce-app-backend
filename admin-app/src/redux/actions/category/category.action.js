@@ -41,7 +41,7 @@ export const AddCategoryAction = (form) => {
 
 			dispatch({
 				type: ADD_NEW_CATEGORIES_SUCCESS,
-				payload: category,
+				payload: { category: category },
 			});
 		} else {
 			dispatch({
