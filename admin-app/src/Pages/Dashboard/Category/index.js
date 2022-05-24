@@ -17,13 +17,7 @@ const CategoryPage = () => {
 	const navigate = useNavigate();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const categorystate = useSelector((state) => state.category);
-
 	const onChangeHandler = (e) => {
-		// SetCategoryData((prevState) => ({
-		// 	...prevState,
-		// 	[e.target.name]: e.target.value,
-		// }));
-
 		e.target.name !== 'categoryImage'
 			? SetCategoryData({ ...categoryData, [e.target.name]: e.target.value })
 			: SetCategoryData({ ...categoryData, [e.target.name]: e.target.files[0] });
@@ -40,6 +34,7 @@ const CategoryPage = () => {
 		UpdatedCategoryData.append('categoryImage', categoryData.categoryImage);
 		console.log(UpdatedCategoryData);
 		dispatch(AddCategoryAction(UpdatedCategoryData));
+		SetCategoryData(categoryData);
 		onClose();
 	};
 
@@ -51,6 +46,8 @@ const CategoryPage = () => {
 		const AllCategories = [];
 		for (let category in categories) {
 			let item = categories[category];
+			// console.log('Item ===> ', item);
+			// console.log('Category ===> ', category);
 			AllCategories.push(
 				<ListItem ml={3}>
 					<ListIcon mt={2} key={item._id} as={BiCategoryAlt} color='cyan.400' />

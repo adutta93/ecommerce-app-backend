@@ -19,7 +19,7 @@ export const CategoryAction = () => {
 
 			dispatch({
 				type: GET_CATEGORIES_SUCCESS,
-				payload: categoryList,
+				payload: { categoryList },
 			});
 		} else {
 			dispatch({
@@ -34,14 +34,11 @@ export const AddCategoryAction = (form) => {
 	return async (dispatch) => {
 		dispatch({ type: ADD_NEW_CATEGORIES_REQUEST });
 		const response = await AxiosInstance.post(`/category/create`, form);
-
-		console.log('Category', response);
 		if (response?.status === 201) {
 			const { category } = response?.data;
-
 			dispatch({
 				type: ADD_NEW_CATEGORIES_SUCCESS,
-				payload: { category: category },
+				payload: { category },
 			});
 		} else {
 			dispatch({

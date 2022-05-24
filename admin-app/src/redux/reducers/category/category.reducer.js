@@ -18,7 +18,7 @@ const InitialState = {
 const BuildNewCategories = (parentId, categories, category) => {
 	let myCategories = [];
 
-	if (parentId == undefined) {
+	if (parentId === '') {
 		return [
 			...categories,
 			{
@@ -32,7 +32,7 @@ const BuildNewCategories = (parentId, categories, category) => {
 	}
 
 	for (let cat of categories) {
-		if (cat._id == parentId) {
+		if (cat._id === parentId) {
 			const newCategory = {
 				_id: category._id,
 				name: category.name,
@@ -62,7 +62,7 @@ export const CategoryReducer = (state = InitialState, action) => {
 		case GET_CATEGORIES_SUCCESS:
 			state = {
 				...state,
-				categories: payload,
+				categories: payload.categoryList,
 			};
 			break;
 		case ADD_NEW_CATEGORIES_REQUEST:
