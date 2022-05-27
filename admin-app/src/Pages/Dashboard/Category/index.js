@@ -5,7 +5,7 @@ import { CategoryAction, AddCategoryAction } from '../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiCategoryAlt } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../../../Components/Modal';
+import CategoryModalPopup from '../../../Components/CategoryModal';
 
 const CategoryPage = () => {
 	const [categoryData, SetCategoryData] = useState({
@@ -92,7 +92,7 @@ const CategoryPage = () => {
 				>
 					Add Category
 				</Button>
-				<Modal
+				<CategoryModalPopup
 					isOpen={isOpen}
 					onOpen={onOpen}
 					onClose={onClose}

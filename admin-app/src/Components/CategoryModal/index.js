@@ -18,7 +18,7 @@ import { CategoryAction } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import FileUpload from '../Fileupload';
 
-const ModalPopup = ({
+const CategoryModalPopup = ({
 	isOpen,
 	onOpen,
 	onClose,
@@ -35,6 +35,7 @@ const ModalPopup = ({
 	const initialRef = React.useRef();
 	const finalRef = React.useRef();
 	const categorystate = useSelector((state) => state.category);
+	console.log('From category', categorystate);
 
 	return (
 		<>
@@ -76,6 +77,7 @@ const ModalPopup = ({
 							{/* value={categoryData?.categoryImage} */}
 							<input type='file' value={''} onChange={CategoryOnchangeHandler} name='categoryImage' />
 						</FormControl>
+						{categoryData?.categoryImage ? <p>Image added</p> : null}
 					</ModalBody>
 
 					<ModalFooter>
@@ -90,4 +92,4 @@ const ModalPopup = ({
 	);
 };
 
-export default ModalPopup;
+export default CategoryModalPopup;
