@@ -28,6 +28,7 @@ router.post('/product/create', isSignedIn, adminMiddleware, upload.array('produc
 router.get('/products/:slug', getProductsBySlug);
 // //router.get('/category/getcategory', getCategories);
 router.get('/product/:productId', getProductDetailsById);
+router.get('/product/all', getProducts);
 // router.delete('/product/deleteProductById', isSignedIn, adminMiddleware, deleteProductById);
 // router.post('/product/getProducts', isSignedIn, adminMiddleware, getProducts);
 

@@ -3,11 +3,11 @@ const Category = require('../models/category.model');
 const slugify = require('slugify');
 const shortid = require('shortid');
 
-function createCategories(categories, parentId = null) {
+function createCategories(categories, parentId = '') {
 	const categoryList = [];
 	let category;
 	if (parentId == null) {
-		category = categories.filter((cat) => cat.parentId == undefined);
+		category = categories.filter((cat) => cat.parentId == '');
 	} else {
 		category = categories.filter((cat) => cat.parentId == parentId);
 	}
