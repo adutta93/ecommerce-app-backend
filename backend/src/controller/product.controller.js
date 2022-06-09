@@ -4,33 +4,34 @@ const slugify = require('slugify');
 const Category = require('../models/category.model');
 
 exports.createProduct = async (req, res) => {
-	// res.status(200).json({ file: req.files, body: req.body });
+	try {
+		const { name, price, description, category, quantity, createdBy } = req.body;
+		let productPictures = [];
 
-	const { name, price, description, category, quantity, createdBy } = req.body;
-	let productPictures = [];
+		if (req.files?.length > 0) {
+			productPictures = req.files.map((file) => {
+				return { img: file.filename };
+			});
+		}
 
-	if (req.files?.length > 0) {
-		productPictures = req.files.map((file) => {
-			return { img: file.filename };
+		const newProduct = new Product({
+			name,
+			slug: slugify(name),
+			price,
+			quantity,
+			description,
+			productPictures,
+			category,
+			createdBy: req.user._id,
 		});
-	}
 
-	const newProduct = new Product({
-		name,
-		slug: slugify(name),
-		price,
-		quantity,
-		description,
-		productPictures,
-		category,
-		createdBy: req.user._id,
-	});
-
-	const product = newProduct.save();
-	if (!product) {
-		return res.status(400).json({ error: 'unable to save product' });
-	}
-	res.status(201).json({ success: 'Product saved successfully', product: { product } });
+		const _product = await newProduct.save();
+		// console.log(_product);
+		if (!_product) {
+			return res.status(400).json({ error: 'unable to save product' });
+		}
+		res.status(201).json({ success: 'Product saved successfully', product: { _product } });
+	} catch (error) {}
 };
 exports.getProductsBySlug = (req, res) => {
 	const { slug } = req.params;

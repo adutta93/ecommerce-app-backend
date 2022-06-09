@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cluster = require('cluster');
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
@@ -43,8 +44,24 @@ app.use('/api', cartRoutes);
 // app.use("/api", orderRoutes);
 // app.use("/api", adminOrderRoute);
 
-const PORT = process.env.PORT || 2000;
-app.listen(process.env.PORT, () => {
-	console.clear();
-	console.log(colors.brightMagenta(`App is running on port ${PORT}`));
-});
+// const PORT = process.env.PORT || 2000;
+// app.listen(process.env.PORT, () => {
+// 	console.clear();
+// 	console.log(colors.brightMagenta(`App is running on port ${PORT}`));
+// });
+
+if (cluster.isMaster) {
+	console.log('Master process running...');
+
+	cluster.fork(() => {
+		console.log(`Cluster ${i} is running at ${process.pid}`);
+	});
+} else {
+	console.log('Worker process running...');
+	const port = process.env.PORT || 2000;
+	const host = '0.0.0.0';
+	app.listen(port, host, () => {
+		console.clear();
+		console.log(`App is running at port ${port}`);
+	});
+}
